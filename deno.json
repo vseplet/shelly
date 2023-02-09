@@ -1,0 +1,74 @@
+{
+  "test": {
+    "files": {
+      "include": ["tests/"]
+    }
+  },
+  "tasks": {
+    "start": "deno run --allow-all workerTest.ts 20000 5"
+  },
+  "lint": {
+    "files": {
+      "include": ["src/"]
+    },
+    "rules": {
+      "tags": ["recommended"],
+      "include": ["ban-untagged-todo"],
+      "exclude": []
+    }
+  },
+
+  "fmt": {
+    "options": {
+      "useTabs": false,
+      "lineWidth": 80,
+      "indentWidth": 2,
+      "singleQuote": true,
+      "proseWrap": "preserve"
+    },
+
+    "files": {
+      "include": [
+        "src/",
+        "tests/",
+        "examples/",
+        "deno.json",
+        "deps.ts",
+        "mod.ts"
+      ],
+      "exclude": [
+        ".vacode",
+        ".idea",
+        ".fleet",
+        ".git"
+      ]
+    }
+  },
+
+  "compilerOptions": {
+    "target": "esnext",
+
+    "allowJs": false,
+    "esModuleInterop": true,
+    "inlineSourceMap": true,
+    "isolatedModules": true,
+    "module": "esnext",
+    "moduleDetection": "force",
+
+    "lib": ["deno.window", "deno.ns", "deno.worker"],
+
+    "useDefineForClassFields": true,
+    "experimentalDecorators": true,
+
+    "strict": true,
+    "alwaysStrict": true,
+    "useUnknownInCatchVariables": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "noUnusedParameters": true,
+    "noImplicitThis": true,
+    "noImplicitReturns": true,
+    "exactOptionalPropertyTypes": true
+  }
+}
