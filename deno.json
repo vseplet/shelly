@@ -28,14 +28,6 @@
     },
 
     "files": {
-      "include": [
-        "src/",
-        "tests/",
-        "examples/",
-        "deno.json",
-        "deps.ts",
-        "mod.ts"
-      ],
       "exclude": [
         ".vacode",
         ".idea",
