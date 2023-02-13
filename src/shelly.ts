@@ -19,7 +19,7 @@ interface IShellyOptions {
  * @param timeout Время в секундах
  * @returns Объект с stdout и stderr
  */
-async function shelly(
+export async function shelly(
   command: string,
   options: IShellyOptions = { timeout: 4 },
 ): Promise<IShellResponse> {
@@ -82,37 +82,37 @@ async function shelly(
 //   console.log('КОКОЙ-ТО НЕПОРЯДОК! ', e);
 // }
 
-async function bash(
+export async function bash(
   command: string,
   options: IShellyOptions = { timeout: 4 },
 ) {
   return await shelly(command, { ...options, shell: 'bash' });
 }
 
-async function zsh(
+export async function zsh(
   command: string,
   options: IShellyOptions = { timeout: 4 },
 ) {
   return await shelly(command, { ...options, shell: 'zsh' });
 }
 
-async function sh(
+export async function sh(
   command: string,
   options: IShellyOptions = { timeout: 4 },
 ) {
   return await shelly(command, { ...options, shell: 'sh' });
 }
-
-try {
-  const { data, error } = await sh(
-    'sleep 4; echo \'ну и?\'',
-    {
-      timeout: 8,
-      shell: 'sh',
-    },
-  );
-  console.log(`Данные: ${data.stdout}, ошибка: ${data.stderr}`);
-  console.log(error ? `Критическая ошибка: ${error}` : 'Ошибок нет');
-} catch (e) {
-  console.log('КОКОЙ-ТО НЕПОРЯДОК! ', e);
-}
+//Тестирование
+// try {
+//   const { data, error } = await sh(
+//     'sleep 4; echo \'ну и?\'',
+//     {
+//       timeout: 8,
+//       shell: 'sh',
+//     },
+//   );
+//   console.log(`Данные: ${data.stdout}, ошибка: ${data.stderr}`);
+//   console.log(error ? `Критическая ошибка: ${error}` : 'Ошибок нет');
+// } catch (e) {
+//   console.log('КОКОЙ-ТО НЕПОРЯДОК! ', e);
+// }
