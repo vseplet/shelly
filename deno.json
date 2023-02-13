@@ -5,7 +5,7 @@
     }
   },
   "tasks": {
-    "start": "deno run --allow-all workerTest.ts 20000 5"
+    "start": "deno run --allow-all src/shelly.ts"
   },
   "lint": {
     "files": {
@@ -21,7 +21,7 @@
   "fmt": {
     "options": {
       "useTabs": false,
-      "lineWidth": 80,
+      "lineWidth": 70,
       "indentWidth": 2,
       "singleQuote": true,
       "proseWrap": "preserve"
@@ -38,19 +38,9 @@
   },
 
   "compilerOptions": {
-    "target": "esnext",
-
     "allowJs": false,
-    "esModuleInterop": true,
-    "inlineSourceMap": true,
-    "isolatedModules": true,
-    "module": "esnext",
-    "moduleDetection": "force",
 
     "lib": ["deno.window", "deno.ns", "deno.worker"],
-
-    "useDefineForClassFields": true,
-    "experimentalDecorators": true,
 
     "strict": true,
     "alwaysStrict": true,

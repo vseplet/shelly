@@ -5,3 +5,4 @@
  echo psina
  sleep 2
  echo ebanaya
+ sleep 10
