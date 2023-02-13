@@ -9,7 +9,7 @@ interface IShellResponse {
 
 interface IShellyOptions {
   timeout: number;
-  shell?: 'zsh' | 'bash' | 'sh' | 'powershell' | 'cmd' | 'pwsh';
+  shell?: 'zsh' | 'bash' | 'sh' | 'powershell' | 'cmd';
 }
 
 /**
@@ -101,6 +101,20 @@ export async function sh(
   options: IShellyOptions = { timeout: 4 },
 ) {
   return await shelly(command, { ...options, shell: 'sh' });
+}
+
+export async function powershell(
+  command: string,
+  options: IShellyOptions = { timeout: 4 },
+) {
+  return await shelly(command, { ...options, shell: 'powershell' });
+}
+
+export async function cmd(
+  command: string,
+  options: IShellyOptions = { timeout: 4 },
+) {
+  return await shelly(command, { ...options, shell: 'cmd' });
 }
 //Тестирование
 // try {
