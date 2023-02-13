@@ -1,4 +1,3 @@
-import { sleep } from 'https://deno.land/x/sleep/mod.ts';
 import { timeoutAsync } from '../tools/timers/control.ts';
 interface IShellResponse {
   data: {
@@ -69,12 +68,47 @@ async function shelly(
 //   console.log('КОКОЙ-ТО НЕПОРЯДОК! ', e);
 // }
 
+// try {
+//   const { data, error } = await shelly(
+//     'sleep 4; echo \'ну и?\'',
+//     {
+//       timeout: 8,
+//       shell: 'zsh',
+//     },
+//   );
+//   console.log(`Данные: ${data.stdout}, ошибка: ${data.stderr}`);
+//   console.log(error ? `Критическая ошибка: ${error}` : 'Ошибок нет');
+// } catch (e) {
+//   console.log('КОКОЙ-ТО НЕПОРЯДОК! ', e);
+// }
+
+async function bash(
+  command: string,
+  options: IShellyOptions = { timeout: 4 },
+) {
+  return await shelly(command, { ...options, shell: 'bash' });
+}
+
+async function zsh(
+  command: string,
+  options: IShellyOptions = { timeout: 4 },
+) {
+  return await shelly(command, { ...options, shell: 'zsh' });
+}
+
+async function sh(
+  command: string,
+  options: IShellyOptions = { timeout: 4 },
+) {
+  return await shelly(command, { ...options, shell: 'sh' });
+}
+
 try {
-  const { data, error } = await shelly(
+  const { data, error } = await sh(
     'sleep 4; echo \'ну и?\'',
     {
       timeout: 8,
-      shell: 'zsh',
+      shell: 'sh',
     },
   );
   console.log(`Данные: ${data.stdout}, ошибка: ${data.stderr}`);
