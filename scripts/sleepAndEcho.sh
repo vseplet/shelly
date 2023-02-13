@@ -5,4 +5,5 @@
  echo psina
  sleep 2
  echo ebanaya
- sleep 10
+ echo "Ошибка внутри шелла, все норм, так и должно быть" >&2
+exit 1
