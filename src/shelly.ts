@@ -1,4 +1,4 @@
-import { timeoutAsync } from '../tools/timers/control.ts';
+import { timeoutAsync } from './helpers/timeoitAsync.ts';
 interface IShellResponse {
   data: {
     stdout: string;
@@ -27,18 +27,22 @@ export async function shelly(
     const cmdArray = options.shell
       ? [options.shell, '-c', command]
       : command.split(' ');
+
     const proc = Deno.run({
       cmd: cmdArray,
       stdout: 'piped',
       stderr: 'piped',
     });
+
     let out: string;
     let err: string;
     let error: any;
+
     const finiteProc = timeoutAsync(
       () => proc.status(),
       options.timeout,
     );
+
     finiteProc.then(() => {
       error = null;
     }).catch((e) => { //Таймер сработал раньше, чем процесс
@@ -55,6 +59,36 @@ export async function shelly(
     return { data: { stdout: '', stderr: '' }, error: e as Error };
   }
 }
+// Updated upstream
+//
+try {
+  const { data, error } = await shelly(
+    './scripts/sleepAndEcho.sh',
+    {
+      timeout: 5,
+      shell: 'zsh',
+    },
+  );
+  console.log(`Данные: ${data.stdout}, ошибка: ${data.stderr}`);
+  console.log(error ? `Критическая ошибка: ${error}` : 'Ошибок нет');
+} catch (e) {
+  console.log('КОКОЙ-ТО НЕПОРЯДОК! ', e);
+}
+
+// try {
+//   const { data, error } = await shelly(
+//     'sleep 4; echo \'ну и?\'',
+//     {
+//       timeout: 8,
+//       shell: 'zsh',
+//     },
+//   );
+//   console.log(`Данные: ${data.stdout}, ошибка: ${data.stderr}`);
+//   console.log(error ? `Критическая ошибка: ${error}` : 'Ошибок нет');
+// } catch (e) {
+//   console.log('КОКОЙ-ТО НЕПОРЯДОК! ', e);
+// }
+
 export async function bash(
   command: string,
   options: IShellyOptions = { timeout: 4 },
