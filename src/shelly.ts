@@ -21,8 +21,8 @@ export const shelly = async (
   command: string,
   options: IShellyOps = defaultShellyOps,
 ): Promise<IShellyRes> => {
-  let stdout: string = '';
-  let stderr: string = '';
+  let stdout = '';
+  let stderr = '';
   let error: Error | null = null;
 
   try {
@@ -37,7 +37,7 @@ export const shelly = async (
       options.timeout,
     );
 
-    proc.kill();
+    if (result === null) proc.kill();
 
     stdout = new TextDecoder().decode(
       await proc.output(),
