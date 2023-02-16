@@ -1,5 +1,3 @@
-// deno-lint-ignore-file
-
 import { promiseWithTimeout } from './helpers/timeoitAsync.ts';
 
 class TimeoutExecutionError extends Error {
@@ -33,8 +31,6 @@ export const shelly = async (
       stdout: 'piped',
       stderr: 'piped',
     });
-
-    console.log('start exec');
 
     const result = await promiseWithTimeout(
       proc.status(),
