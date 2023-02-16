@@ -1,140 +1,75 @@
-import { timeoutAsync } from './helpers/timeoitAsync.ts';
-interface IShellResponse {
-  data: {
-    stdout: string;
-    stderr: string;
-  };
+// deno-lint-ignore-file
+
+import { promiseWithTimeout } from './helpers/timeoitAsync.ts';
+
+class TimeoutExecutionError extends Error {
+}
+
+interface IShellyOps {
+  timeout: number;
+}
+
+interface IShellyRes {
+  stdout: string;
+  stderr: string;
   error: Error | null;
 }
 
-interface IShellyOptions {
-  timeout: number;
-  shell?: 'zsh' | 'bash' | 'sh' | 'powershell' | 'cmd';
-}
+const defaultShellyOps: IShellyOps = {
+  timeout: 15,
+};
 
-/**
- * Выполняет @command, если выполнение займет дольше @timeout, вернет Error.
- * В случае успеха вернет объект с stdout и stderr
- * @param command Строка с командой
- * @param timeout Время в секундах
- * @returns Объект с stdout и stderr
- */
-export async function shelly(
+export const shelly = async (
   command: string,
-  options: IShellyOptions = { timeout: 4 },
-): Promise<IShellResponse> {
-  try {
-    const cmdArray = options.shell
-      ? [options.shell, '-c', command]
-      : command.split(' ');
+  options: IShellyOps = defaultShellyOps,
+): Promise<IShellyRes> => {
+  let stdout: string = '';
+  let stderr: string = '';
+  let error: Error | null = null;
 
+  try {
     const proc = Deno.run({
-      cmd: cmdArray,
+      cmd: command.split(' '),
       stdout: 'piped',
       stderr: 'piped',
     });
 
-    let out: string;
-    let err: string;
-    let error: any;
+    console.log('start exec');
 
-    const finiteProc = timeoutAsync(
-      () => proc.status(),
+    const result = await promiseWithTimeout(
+      proc.status(),
       options.timeout,
     );
 
-    finiteProc.then(() => {
-      error = null;
-    }).catch((e) => { //Таймер сработал раньше, чем процесс
-      proc.kill();
-      error = new Error(e);
-    });
+    proc.kill();
 
-    out = new TextDecoder().decode(await proc.output());
-    err = new TextDecoder().decode(await proc.stderrOutput());
-    await proc.close();
-    return { data: { stdout: out, stderr: err }, error: error };
+    stdout = new TextDecoder().decode(
+      await proc.output(),
+    );
+
+    stderr = new TextDecoder().decode(
+      await proc.stderrOutput(),
+    );
+
+    proc.close();
+
+    if (result === null) {
+      throw new TimeoutExecutionError(
+        'Process execution timeout!',
+      );
+    }
   } catch (e) {
-    // throw new Error(e); //TODO: Переделать на нормальный Error
-    return { data: { stdout: '', stderr: '' }, error: e as Error };
+    error = e as Error;
   }
-}
-// Updated upstream
-//
-try {
-  const { data, error } = await shelly(
-    './scripts/sleepAndEcho.sh',
-    {
-      timeout: 5,
-      shell: 'zsh',
-    },
-  );
-  console.log(`Данные: ${data.stdout}, ошибка: ${data.stderr}`);
-  console.log(error ? `Критическая ошибка: ${error}` : 'Ошибок нет');
-} catch (e) {
-  console.log('КОКОЙ-ТО НЕПОРЯДОК! ', e);
-}
 
-// try {
-//   const { data, error } = await shelly(
-//     'sleep 4; echo \'ну и?\'',
-//     {
-//       timeout: 8,
-//       shell: 'zsh',
-//     },
-//   );
-//   console.log(`Данные: ${data.stdout}, ошибка: ${data.stderr}`);
-//   console.log(error ? `Критическая ошибка: ${error}` : 'Ошибок нет');
-// } catch (e) {
-//   console.log('КОКОЙ-ТО НЕПОРЯДОК! ', e);
-// }
+  return {
+    stderr,
+    stdout,
+    error,
+  };
+};
 
-export async function bash(
-  command: string,
-  options: IShellyOptions = { timeout: 4 },
-) {
-  return await shelly(command, { ...options, shell: 'bash' });
-}
-
-export async function zsh(
-  command: string,
-  options: IShellyOptions = { timeout: 4 },
-) {
-  return await shelly(command, { ...options, shell: 'zsh' });
-}
-
-export async function sh(
-  command: string,
-  options: IShellyOptions = { timeout: 4 },
-) {
-  return await shelly(command, { ...options, shell: 'sh' });
-}
-
-export async function powershell(
-  command: string,
-  options: IShellyOptions = { timeout: 4 },
-) {
-  return await shelly(command, { ...options, shell: 'powershell' });
-}
-
-export async function cmd(
-  command: string,
-  options: IShellyOptions = { timeout: 4 },
-) {
-  return await shelly(command, { ...options, shell: 'cmd' });
-}
-
-//Тестирование
-// try {
-//   const { data, error } = await sh(
-//     'sleep 4; echo \'ну и?\'',
-//     {
-//       timeout: 8,
-//       shell: 'sh',
-//     },
-//   );
-//   console.log(`Данные: ${data.stdout}, ошибка: ${data.stderr}`);
-//   console.log(error ? `Критическая ошибка: ${error}` : 'Ошибок нет');
-// } catch (e) {
-//   console.log('КОКОЙ-ТО НЕПОРЯДОК! ', e);
-// }
+// example
+// console.log(
+//   await shelly(`../scripts/sleepAndEcho.sh`, { timeout: 3 }),
+// );

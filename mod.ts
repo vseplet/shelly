@@ -1,1 +1,1 @@
-export { shelly } from './src/shelly.ts';
+export { shellyOld } from './src/shelly.ts';

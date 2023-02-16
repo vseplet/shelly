@@ -39,9 +39,6 @@
 
   "compilerOptions": {
     "allowJs": false,
-
-    "lib": ["deno.window", "deno.ns", "deno.worker"],
-
     "strict": true,
     "alwaysStrict": true,
     "useUnknownInCatchVariables": true,
