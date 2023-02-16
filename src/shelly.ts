@@ -1,24 +1,24 @@
 import { promiseWithTimeout } from './helpers/timeoitAsync.ts';
 
-class TimeoutExecutionError extends Error {
+export class TimeoutExecutionError extends Error {
 }
 
-interface IShellyOps {
+export interface IShellyOps {
   timeout: number;
 }
 
-interface IShellyRes {
+export interface IShellyRes {
   stdout: string;
   stderr: string;
   error: Error | null;
 }
 
-const defaultShellyOps: IShellyOps = {
+export const defaultShellyOps: IShellyOps = {
   timeout: 15,
 };
 
 export const shelly = async (
-  command: string,
+  command: string[] | string,
   options: IShellyOps = defaultShellyOps,
 ): Promise<IShellyRes> => {
   let stdout = '';
@@ -27,7 +27,7 @@ export const shelly = async (
 
   try {
     const proc = Deno.run({
-      cmd: command.split(' '),
+      cmd: typeof command === 'object' ? command : command.split(' '),
       stdout: 'piped',
       stderr: 'piped',
     });
