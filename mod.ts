@@ -1,1 +1,4 @@
-export { shellyOld } from './src/shelly.ts';
+export { shelly } from './src/shelly.ts';
+export { sh } from './src/integrations/shell.ts';
+export { bash } from './src/integrations/shell.ts';
+export { zsh } from './src/integrations/shell.ts';

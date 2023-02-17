@@ -64,8 +64,3 @@ export const shelly = async (
     error,
   };
 };
-
-// example
-// console.log(
-//   await shelly(`../scripts/sleepAndEcho.sh`, { timeout: 3 }),
-// );

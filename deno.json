@@ -7,6 +7,7 @@
   "tasks": {
     "start": "deno run --allow-all src/shelly.ts"
   },
+
   "lint": {
     "files": {
       "include": ["src/"]
