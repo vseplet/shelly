@@ -5,7 +5,7 @@
     }
   },
   "tasks": {
-    "start": "deno run --allow-all src/shelly.ts"
+    "start": "deno run --allow-all src/.ts"
   },
   "lint": {
     "files": {
