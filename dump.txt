@@ -1,0 +1,14 @@
+total 40
+drwxr-xr-x  13 artpani  staff  416 Feb 17 04:23 .
+drwxr-xr-x  28 artpani  staff  896 Feb 14 17:20 ..
+-rw-r--r--   1 artpani  staff  160 Feb 17 00:10 .editorconfig
+drwxr-xr-x  15 artpani  staff  480 Feb 17 03:00 .git
+-rw-r--r--   1 artpani  staff   30 Feb  9 20:10 .gitignore
+drwxr-xr-x   3 artpani  staff   96 Feb  9 20:09 .vscode
+-rw-r--r--   1 artpani  staff    9 Feb 17 00:10 README.md
+-rw-r--r--   1 artpani  staff  958 Feb 17 00:10 deno.json
+-rw-r--r--   1 artpani  staff    0 Feb 17 04:23 dump.txt
+-rw-r--r--   1 artpani  staff   45 Feb 17 00:10 mod.ts
+drwxr-xr-x   3 artpani  staff   96 Feb 10 21:39 scripts
+drwxr-xr-x   7 artpani  staff  224 Feb 17 00:43 src
+drwxr-xr-x   3 artpani  staff   96 Feb 17 00:10 test
