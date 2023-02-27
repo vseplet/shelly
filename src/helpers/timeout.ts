@@ -1,5 +1,11 @@
 export type TtimeoutAsync<T> = T | string;
 
+/**
+ * Executes a promise with a timeout and returns the result
+ * @param {Promise<T>} promise
+ * @param {number} timeout
+ * @returns {Promise<T | null>} result or null if timeout
+ */
 export async function promiseWithTimeout<T>(
   promise: Promise<T>,
   timeout: number,
