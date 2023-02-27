@@ -1,12 +1,20 @@
-import { promiseWithTimeout } from './helpers/timeoitAsync.ts';
+import { TimeoutExecutionError } from './errors.ts';
+import { promiseWithTimeout } from './helpers/timeout.ts';
 
-export class TimeoutExecutionError extends Error {
-}
-
+/**
+ * Options for the shelly function
+ * @property {number} timeout - timeout in seconds
+ */
 export interface IShellyOps {
   timeout: number;
 }
 
+/**
+ * Result of the shelly function
+ * @property {string} stdout - stdout of the command
+ * @property {string} stderr - stderr of the command
+ * @property {Error | null} error - error if any
+ */
 export interface IShellyRes {
   stdout: string;
   stderr: string;
@@ -17,6 +25,12 @@ export const defaultShellyOps: IShellyOps = {
   timeout: 15,
 };
 
+/**
+ * Executes a command and returns the result
+ * @param command - command to execute
+ * @param options
+ * @returns {Promise<IShellyRes>} stdout, stderr and error
+ */
 export const shelly = async (
   command: string[] | string,
   options: IShellyOps = defaultShellyOps,
