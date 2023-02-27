@@ -1,7 +1,5 @@
-import { promiseWithTimeout } from './helpers/timeoitAsync.ts';
-
-export class TimeoutExecutionError extends Error {
-}
+import { TimeoutExecutionError } from './errors.ts';
+import { promiseWithTimeout } from './helpers/timeout.ts';
 
 export interface IShellyOps {
   timeout: number;
