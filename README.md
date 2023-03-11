@@ -1,4 +1,5 @@
 # Shelly
+[![deno.land/x/shelly](https://shield.deno.dev/x/shelly)](https://deno.land/x/shelly)
 
 Shelly is a module designed for executing commands in TypeScript. The code exports a function called [shelly](./src/shelly.ts) which takes in two arguments: a command as a string or an array of strings and an optional set of options with default values.
 
