@@ -1,6 +1,6 @@
 {
   "name": "@vseplet/shelly",
-  "version": "NaN.1.12",
+  "version": "0.1.12",
   "exports": {
     ".": "./mod.ts"
   },
@@ -42,6 +42,7 @@
     },
     "files": {
       "exclude": [
+        "./source/versions.ts",
         ".vacode",
         ".idea",
         ".fleet",
