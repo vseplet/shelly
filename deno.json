@@ -1,11 +1,18 @@
 {
+  "name": "@vseplet/shelly",
+  "version": "0.1.11",
+  "exports": {
+    ".": "./mod.ts"
+  },
+  "lock": false,
   "test": {
     "files": {
       "include": ["tests/"]
     }
   },
   "tasks": {
-    "start": "deno run --allow-all src/shelly.ts"
+    "start": "deno run --allow-all src/shelly.ts",
+    "pub-dry": "deno publish --dry-run --allow-slow-types"
   },
 
   "lint": {

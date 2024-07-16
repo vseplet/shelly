@@ -1,6 +1,5 @@
 import { TimeoutExecutionError } from './errors.ts';
 import { promiseWithTimeout } from './helpers/timeout.ts';
-
 /**
  * Options for the shelly function
  * @property {number} timeout - timeout in seconds

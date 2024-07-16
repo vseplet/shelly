@@ -1,5 +1,5 @@
 import { assertEquals } from 'https://deno.land/std@0.177.0/testing/asserts.ts';
-import { bash, shellyOld, zsh } from '../src/shelly.ts';
+import { bash, shellyOld, zsh } from '../source/shelly.ts';
 
 Deno.test('shelly - run command and returns stdout', async () => {
   const result = await shellyOld('echo hello world');
