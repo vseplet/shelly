@@ -1,31 +1,37 @@
 {
   "name": "@vseplet/shelly",
-  "version": "0.1.11",
+  "version": "NaN.1.12",
   "exports": {
     ".": "./mod.ts"
   },
   "lock": false,
   "test": {
     "files": {
-      "include": ["tests/"]
+      "include": [
+        "tests/"
+      ]
     }
   },
   "tasks": {
     "start": "deno run --allow-all src/shelly.ts",
     "pub-dry": "deno publish --dry-run --allow-slow-types"
   },
-
   "lint": {
     "files": {
-      "include": ["src/"]
+      "include": [
+        "src/"
+      ]
     },
     "rules": {
-      "tags": ["recommended"],
-      "include": ["ban-untagged-todo"],
+      "tags": [
+        "recommended"
+      ],
+      "include": [
+        "ban-untagged-todo"
+      ],
       "exclude": []
     }
   },
-
   "fmt": {
     "options": {
       "useTabs": false,
@@ -34,7 +40,6 @@
       "singleQuote": true,
       "proseWrap": "preserve"
     },
-
     "files": {
       "exclude": [
         ".vacode",
@@ -44,7 +49,6 @@
       ]
     }
   },
-
   "compilerOptions": {
     "allowJs": false,
     "strict": true,
