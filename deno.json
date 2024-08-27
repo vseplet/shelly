@@ -1,45 +1,24 @@
 {
+  "lock": false,
   "name": "@vseplet/shelly",
   "version": "0.1.12",
+  "license": "MIT",
   "exports": {
-    ".": "./mod.ts"
+    ".": "./source/mod.ts",
+    "./types": "./source/types.ts",
+    "./integrations/shibui": "./source/integrations/shibui.ts"
   },
-  "lock": false,
-  "test": {
-    "files": {
-      "include": [
-        "tests/"
-      ]
-    }
+  "imports": {
+    "$/": "./source/",
+    "$types": "./source/types.ts",
+    "$helpers": "./source/helpers/mod.ts",
+    "$errors": "./source/errors.ts"
   },
   "tasks": {
-    "start": "deno run --allow-all src/shelly.ts",
+    "dev": "deno run --allow-all ./source/mod.ts",
     "pub-dry": "deno publish --dry-run --allow-slow-types"
   },
-  "lint": {
-    "files": {
-      "include": [
-        "src/"
-      ]
-    },
-    "rules": {
-      "tags": [
-        "recommended"
-      ],
-      "include": [
-        "ban-untagged-todo"
-      ],
-      "exclude": []
-    }
-  },
   "fmt": {
-    "options": {
-      "useTabs": false,
-      "lineWidth": 70,
-      "indentWidth": 2,
-      "singleQuote": true,
-      "proseWrap": "preserve"
-    },
     "files": {
       "exclude": [
         "./source/versions.ts",
@@ -49,18 +28,5 @@
         ".git"
       ]
     }
-  },
-  "compilerOptions": {
-    "allowJs": false,
-    "strict": true,
-    "alwaysStrict": true,
-    "useUnknownInCatchVariables": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "noUnusedParameters": true,
-    "noImplicitThis": true,
-    "noImplicitReturns": true,
-    "exactOptionalPropertyTypes": true
   }
 }

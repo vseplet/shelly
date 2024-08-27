@@ -1,9 +1,9 @@
-import { assertEquals } from 'https://deno.land/std@0.177.0/testing/asserts.ts';
-import { bash, shellyOld, zsh } from '../source/shelly.ts';
+import { assertEquals } from "https://deno.land/std@0.177.0/testing/asserts.ts";
+import { shelly } from "$/shelly.ts";
 
-Deno.test('shelly - run command and returns stdout', async () => {
-  const result = await shellyOld('echo hello world');
-  assertEquals(result.data.stdout.trim(), 'hello world');
+Deno.test("shelly - run command and returns stdout", async () => {
+  const result = await shelly("echo hello world");
+  assertEquals(result.stdout.trim(), "hello world");
 });
 
 // Deno.test('shelly - returns Error when command execution takes longer than timeout', async () => {
