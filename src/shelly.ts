@@ -1,5 +1,5 @@
-import { TimeoutExecutionError } from './errors.ts';
-import { promiseWithTimeout } from './helpers/timeout.ts';
+import { TimeoutExecutionError } from "./errors.ts";
+import { promiseWithTimeout } from "./helpers/timeout.ts";
 
 /**
  * Options for the shelly function
@@ -35,15 +35,15 @@ export const shelly = async (
   command: string[] | string,
   options: IShellyOps = defaultShellyOps,
 ): Promise<IShellyRes> => {
-  let stdout = '';
-  let stderr = '';
+  let stdout = "";
+  let stderr = "";
   let error: Error | null = null;
 
   try {
     const proc = Deno.run({
-      cmd: typeof command === 'object' ? command : command.split(' '),
-      stdout: 'piped',
-      stderr: 'piped',
+      cmd: typeof command === "object" ? command : command.split(" "),
+      stdout: "piped",
+      stderr: "piped",
     });
 
     const result = await promiseWithTimeout(
@@ -65,7 +65,7 @@ export const shelly = async (
 
     if (result === null) {
       throw new TimeoutExecutionError(
-        'Process execution timeout!',
+        "Process execution timeout!",
       );
     }
   } catch (e) {

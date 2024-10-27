@@ -1,1 +1,1 @@
-export { promiseWithTimeout } from './timeout.ts';
+export { promiseWithTimeout } from "./timeout.ts";
