@@ -1,5 +1,3 @@
-export type TtimeoutAsync<T> = T | string;
-
 /**
  * Executes a promise with a timeout and returns the result
  * @param {Promise<T>} promise
