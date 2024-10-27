@@ -1,7 +1,7 @@
 {
   "lock": false,
   "name": "@vseplet/shelly",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "license": "MIT",
   "exports": {
     ".": "./source/mod.ts",
