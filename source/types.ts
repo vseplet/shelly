@@ -5,6 +5,12 @@ export type TimeoutAsync<T> = T | string;
  * @property {number} timeout - timeout in seconds
  */
 export type ShellyOptions = {
+  timeout?: number;
+  exception?: boolean;
+  input?: Uint8Array | string;
+};
+
+export type DefaultShellyOptions = {
   timeout: number;
   exception: boolean;
 };

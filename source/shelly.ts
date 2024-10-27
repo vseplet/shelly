@@ -27,13 +27,24 @@ export const shelly = async (
 
     const process = new Deno.Command(command, {
       args,
+      stdin: "piped",
       stdout: "piped",
       stderr: "piped",
     }).spawn();
 
+    if (options.input) {
+      const writer = process.stdin.getWriter();
+      await writer.write(
+        options.input instanceof Uint8Array
+          ? options.input
+          : new TextEncoder().encode(options.input),
+      );
+      await writer.close();
+    }
+
     const result = await promiseWithTimeout(
       process.output(),
-      options.timeout,
+      options?.timeout || defaultShellyOptions.timeout,
     );
 
     if (result === null) process.kill();
