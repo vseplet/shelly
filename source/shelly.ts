@@ -27,6 +27,7 @@ export const shelly = async (
 
     const process = new Deno.Command(command, {
       args,
+      env: options.env,
       stdin: "piped",
       stdout: "piped",
       stderr: "piped",

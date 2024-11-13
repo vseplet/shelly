@@ -8,6 +8,7 @@ export type ShellyOptions = {
   timeout?: number;
   exception?: boolean;
   input?: Uint8Array | string;
+  env?: Record<string, string>;
 };
 
 export type DefaultShellyOptions = {
